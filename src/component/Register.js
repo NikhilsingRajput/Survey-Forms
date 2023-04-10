@@ -43,14 +43,14 @@ const Register = () => {
 
     // validating profession input
     const validateProfession = (input) => {
-        const regex = /^[a-zA-Z]{1,29}[a-zA-Z]$/;
-        return regex.test(input);
+        // const regex = /^[a-zA-Z]{1,29}[a-zA-Z]$/;
+        // return regex.test(input);
     };
 
     const handleChange = (e) => {
         const input = e.target.value;
         setProfession(input);
-        setIsValid(validateProfession(input));
+        // setIsValid(validateProfession(input));
     };
 
     // validating password 
@@ -59,7 +59,6 @@ const Register = () => {
         // const specialLetters = /[A-Za-z]+/;
         const item = e.target.value;
              setPassword(item);
-             console.log('passwordhandler ', password);
         if (item.length < 6) {
             setPassErr(true)
         }
@@ -77,7 +76,7 @@ const Register = () => {
         const value = e.target.value;
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(value)) {
-            setEmailError(<div style={{ color: "red" }}>Please enter a valid email address</div>);
+            setEmailError(<div style={{ color: "red" }}>*Please enter a valid email address</div>);
         } else {
             setEmail(value);
             setEmailError('');
@@ -128,7 +127,7 @@ const Register = () => {
                             placeholder={"Email"}
                             required
                             onChange={handleEmailChange} />
-                              {(emailError && emailError.length !== 0) ? <p>{emailError}</p> : null}
+                              {(emailError && emailError.length !== 0) ? <p className="Emailerror">{emailError}</p> : null}
                         {/* to display email error */}
                     </div>
                     <div className="input-box">
@@ -144,7 +143,8 @@ const Register = () => {
                             // required
                             placeholder={"Profession"}
                             value={profession}
-                            onChange={handleChange} />
+                            onChange={handleChange} 
+                            required />
 
                         {(isValid == 0 && isValid < 31) ? (
                             // <span style={{ color: "green" }}>Valid profession!</span>
@@ -170,11 +170,13 @@ const Register = () => {
                             placeholder={"Confirm Password"}
                             onChange={handleConfirmPassword} 
                              /> 
-                        {passErr ? <div style={{ color: "red" }} >Password Invalid</div> : null}   {/* // password error displaying here */}
+                             {/* // password error displaying here */}
+                        {passErr ? <div style={{ color: "red" }} >Password Invalid</div> : null}   
                         <div>
+                            {/* //confirm password error displaying here */}
                             {error ? <p style={{ color: "red" }}>{error}</p> : null}
                         </div>
-                        {/* //confirm password error displaying here */}
+                        
                     </div>
                     <div id="checkbox">
                     <input   type={'checkbox'} required /><span className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</span>

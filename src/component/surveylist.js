@@ -11,11 +11,13 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function Navigation() {
-    const navigate=useNavigate()
+    const [search , setsearch] = useState("")
+    const navigate=useNavigate();
+    const url ='https://survey-form-backend-nikhilsingrajput.onrender.com'
     // function get
     function getSurveyList() {
        
-        return  axios.get('http://localhost:8000/survey/surveys')
+        return  axios.get(url+'/survey/surveys')
             .then(res => {
                 if(res.status === 200 && res.data){
                     // console.log("ok")
@@ -26,13 +28,20 @@ function Navigation() {
     }
 
     function Surveys(){
-
+       
         const [survey,setsurvey] = useState([])
+
+        const searchItem=survey.filter((item)=>{
+            if(search === ""){
+                return item
+            }else if (item.name.toLowerCase().includes(search.toLowerCase())){
+                return item
+            }
+        })
     // console.log(getUserPosts())
         useEffect(()=>{
             getSurveyList()
             .then(data =>{
-                // console.log(data)
                 setsurvey(data)
             }).catch(err=>{
                 alert(err.message)
@@ -40,7 +49,7 @@ function Navigation() {
         },[])
         return <div id="survey-container">
             {
-                survey.map(list=>{
+                searchItem.map(list=>{
                     return <table>
                     <tr>
                         <td className="first-tdd">{list.name}</td>
@@ -92,7 +101,11 @@ function Navigation() {
                         <span>Survey List</span>
                     </div>
                     <div className="search-container">
-                        <input className="search" type="text" placeholder="Search" />
+                        <input className="search" type="text"
+                        onChange={(e)=>{
+                            setsearch(e.target.value)
+                        }}
+                        placeholder="Search" />
                         <button onClick={()=>navigate('/Surveypage')}>Create</button>
                         <img className="sort-image" src={sort} alt="sort" />
                         <img className="sort-image" src={filter} alt="sort" />

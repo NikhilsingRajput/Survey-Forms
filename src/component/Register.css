@@ -173,3 +173,6 @@ input::placeholder {
     font-size: 10px;
     margin-left: 14vw; 
 }
+.Emailerror{
+    padding-left: 18vw;
+}
