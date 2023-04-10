@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 function Navigation() {
     const [search , setsearch] = useState("")
     const navigate=useNavigate();
-    const url ='https://survey-form-backend-nikhilsingrajput.onrender.com'
+    const url ='https://surveyform-nikhilrajput.onrender.com'
     // function get
     function getSurveyList() {
        

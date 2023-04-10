@@ -25,7 +25,7 @@ const Register = () => {
         e.preventDefault();
         try {
             //instead of local host we need to use hosted backend later*************
-            const res = await axios.post("http://localhost:8000/", {
+            const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/", {
                 "name": name,
                 "email": email,
                 "phone": phone,

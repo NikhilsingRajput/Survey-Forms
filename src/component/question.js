@@ -18,7 +18,7 @@ export default function Question() {
         //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
         try {
             //instead of local host we need to use hosted backend later*************
-            const res = await axios.post("http://localhost:8000/survey/question/create", {
+            const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/survey/question/create", {
                 "question": question,
                 "number":num,
                 "options1": option1,

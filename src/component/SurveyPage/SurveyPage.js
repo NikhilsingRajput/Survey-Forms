@@ -19,23 +19,13 @@ const SurveyPage = () => {
         const [type, setType] = useState("");
         const [image, setImage] = useState("");
 
-    // const AuthSurvey = (e) => {
-    //     e.preventDefault();
-    //     try {
-
-
-    //     } catch (error) {
-
-    //     }
-    // }
-
     const handleSubmit = async (e) => {
         navigate('/Questions')
         
       //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
       try {
         //instead of local host we need to use hosted backend later*************
-        const res = await axios.post("https://survey-form-backend-nikhilsingrajput.onrender.com/survey/create", {
+        const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/survey/create", {
             "name": name,
             "description": description,
             "startDate": startDate,
