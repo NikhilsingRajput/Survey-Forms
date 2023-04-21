@@ -24,7 +24,7 @@ const Register = () => {
 
         e.preventDefault();
         try {
-            //instead of local host we need to use hosted backend later*************
+
             const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/", {
                 "name": name,
                 "email": email,
@@ -58,7 +58,7 @@ const Register = () => {
         // const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
         // const specialLetters = /[A-Za-z]+/;
         const item = e.target.value;
-             setPassword(item);
+        setPassword(item);
         if (item.length < 6) {
             setPassErr(true)
         }
@@ -68,7 +68,7 @@ const Register = () => {
         else {
             setPassErr(false)
         }
-        
+
     }
 
     //validating email address
@@ -85,9 +85,9 @@ const Register = () => {
 
     // validating confirm password
     const handleConfirmPassword = (e) => {
-        const cpass= e.target.value
+        const cpass = e.target.value
         setConfirmPassword(e.target.value);
-         if (password !== cpass) {
+        if (password !== cpass) {
             setError("Password and Confirm Password do not match! ");
             setValidPassword("");
         } else {
@@ -97,10 +97,10 @@ const Register = () => {
     };
 
     // validating passwords are matching or not
-    
-      
-       
-    
+
+
+
+
 
 
 
@@ -120,19 +120,19 @@ const Register = () => {
                     <div className="heading1">Register</div>
                     <div className="heading2" >Register to continue access pages</div>
                     <div className="input-box">
-                        <input  onChange={(e) => { setName(e.target.value) }}
+                        <input onChange={(e) => { setName(e.target.value) }}
                             value={name}
-                            required className="reg-input" type={'text'} placeholder={"Name"}  />
-                        <input className="reg-input"  type={'email'}
+                            required className="reg-input" type={'text'} placeholder={"Name"} />
+                        <input className="reg-input" type={'email'}
                             placeholder={"Email"}
                             required
                             onChange={handleEmailChange} />
-                              {(emailError && emailError.length !== 0) ? <p className="Emailerror">{emailError}</p> : null}
+                        {(emailError && emailError.length !== 0) ? <p className="Emailerror">{emailError}</p> : null}
                         {/* to display email error */}
                     </div>
                     <div className="input-box">
-                    <input
-                         className="reg-input"
+                        <input
+                            className="reg-input"
                             type={'text'}
                             pattern="[0-9]{1}[0-9]{9}"
                             placeholder={"Phone"}
@@ -143,7 +143,7 @@ const Register = () => {
                             // required
                             placeholder={"Profession"}
                             value={profession}
-                            onChange={handleChange} 
+                            onChange={handleChange}
                             required />
 
                         {(isValid == 0 && isValid < 31) ? (
@@ -156,30 +156,30 @@ const Register = () => {
                         )}
                     </div>
                     <div className="input-box">
-                    <input
-                        className="reg-input"
+                        <input
+                            className="reg-input"
                             type={'password'}
                             placeholder={"Password"}
                             required
                             onChange={PasswordHandler} />
 
                         <input
-                        className="reg-input"
+                            className="reg-input"
                             type={'password'}
                             required
                             placeholder={"Confirm Password"}
-                            onChange={handleConfirmPassword} 
-                             /> 
-                             {/* // password error displaying here */}
-                        {passErr ? <div style={{ color: "red" }} >Password Invalid</div> : null}   
+                            onChange={handleConfirmPassword}
+                        />
+                        {/* // password error displaying here */}
+                        {passErr ? <div style={{ color: "red" }} >Password Invalid</div> : null}
                         <div>
                             {/* //confirm password error displaying here */}
                             {error ? <p style={{ color: "red" }}>{error}</p> : null}
                         </div>
-                        
+
                     </div>
                     <div id="checkbox">
-                    <input   type={'checkbox'} required /><span className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</span>
+                        <input type={'checkbox'} required /><span className="checkbox-text"> I agree to Terms & Condition receiving marketing and promotional materials</span>
                     </div>
                     <button className="btns-1" type="submit" >Register</button>
 

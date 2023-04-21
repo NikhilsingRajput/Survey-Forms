@@ -3,43 +3,43 @@ import logo1 from '../assets/logo.svg';
 import logo2 from '../assets/community.svg';
 import hamburger from '../assets/hamburger.svg';
 import person from '../assets/person.svg'
-import { useState} from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 
 
 const SurveyPage = () => {
-    const navigate=useNavigate()
-        const [name, setName] = useState('');
-        const [description, setDescription] = useState("");
-        const [startDate, setStartDate] = useState();
-        const [endDate, setEndDate] = useState();
-        const [otherCriteria, setotherCriteria] = useState("");
-        const [type, setType] = useState("");
-        const [image, setImage] = useState("");
+    const navigate = useNavigate()
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState("");
+    const [startDate, setStartDate] = useState();
+    const [endDate, setEndDate] = useState();
+    const [otherCriteria, setotherCriteria] = useState("");
+    const [type, setType] = useState("");
+    const [image, setImage] = useState("");
 
     const handleSubmit = async (e) => {
         navigate('/Questions')
-        
-      //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
-      try {
-        //instead of local host we need to use hosted backend later*************
-        const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/survey/create", {
-            "name": name,
-            "description": description,
-            "startDate": startDate,
-            "endDate": endDate,
-            "otherCriteria": otherCriteria,
-            "type": type,
-            "image" : image
-        });
-        console.log(res.data);
-        alert('survey added');
-      
-    } catch (error) {
-        console.error(error);
-    }
+
+        //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
+        try {
+            //instead of local host we need to use hosted backend later*************
+            const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/survey/create", {
+                "name": name,
+                "description": description,
+                "startDate": startDate,
+                "endDate": endDate,
+                "otherCriteria": otherCriteria,
+                "type": type,
+                "image": image
+            });
+            console.log(res.data);
+            alert('survey added');
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
 
@@ -48,13 +48,13 @@ const SurveyPage = () => {
             <div className="main">
                 <div className="left-nav">
                     <span>
-                        <img src={logo1} alt="logo1" />
+                        <img onClick={() => navigate('/Surveylist')} src={logo1} alt="logo1" />
                     </span>
                     <span className="icon2">
                         <img src={logo2} alt="logo2" />
                     </span>
                     <span className="three-line">
-                        <img className="three" src={hamburger} alt="hamburger" />
+                        <img onClick={() => navigate('/Questions')} className="three" src={hamburger} alt="hamburger" />
                     </span>
                 </div>
                 <div className="right-side">
@@ -101,15 +101,17 @@ const SurveyPage = () => {
                                 <label className="survey-title"> Type of Survey</label>
                                 <select
                                     className="options-style"
-                                    onChange={(e) => {setType(e.target.value)}}
+                                    onChange={(e) => { setType(e.target.value) }}
                                     // value={}
                                     required
                                     id="options"
                                     name="options"
                                 >
-                                    <option  value="select">Select</option>
-                                    <option  value="type1">TYPE1</option>
-                                    <option  value="type2">TYPE2</option>
+                                    <option value="select">Select</option>
+                                    <option value="type1">community</option>
+                                    <option value="type2">Focus Group</option>
+                                    <option value="type3">Telephone</option>
+                                    <option value="type4">Mail</option>
                                 </select>
                             </div>
 
@@ -118,14 +120,14 @@ const SurveyPage = () => {
                                     <label className="date-title">Start Date</label>
                                     <input
                                         className="date-input"
-                                        onChange={(e) => {setStartDate(e.target.value)}}
+                                        onChange={(e) => { setStartDate(e.target.value) }}
                                         required
                                         type={'date'}
                                     />
                                     <label className="date-title end-date">End Date</label>
                                     <input
                                         className="date-input"
-                                        onChange={(e) => {setEndDate(e.target.value)}}
+                                        onChange={(e) => { setEndDate(e.target.value) }}
                                         required
                                         type={'date'}
                                     />
@@ -142,7 +144,7 @@ const SurveyPage = () => {
                                 <div className="uploader-input">
                                     <input
                                         type="file"
-                                        onChange={(e) => {setImage(e.target.value)}}
+                                        onChange={(e) => { setImage(e.target.value) }}
                                         id="input-file-max-fs"
                                         class="file-upload"
                                         data-max-file-size="2M"

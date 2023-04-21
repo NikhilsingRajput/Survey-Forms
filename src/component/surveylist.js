@@ -14,6 +14,7 @@ function Navigation() {
     const [search , setsearch] = useState("")
     const navigate=useNavigate();
     const url ='https://surveyform-nikhilrajput.onrender.com'
+    
     // function get
     function getSurveyList() {
        
@@ -29,6 +30,16 @@ function Navigation() {
 
     function Surveys(){
        
+        const deletesurvey = async(id,e)=>{
+            e.preventDefault()
+            // console.log(id);
+            const res =await axios.delete(url+'/survey/surveys/:name/delete', {
+                data:{"id" : id}
+            }).then((res)=>{
+                console.log("Survey deleted")
+            })
+          
+        }
         const [survey,setsurvey] = useState([])
 
         const searchItem=survey.filter((item)=>{
@@ -46,7 +57,7 @@ function Navigation() {
             }).catch(err=>{
                 alert(err.message)
             })
-        },[])
+        },[deletesurvey])
         return <div id="survey-container">
             {
                 searchItem.map(list=>{
@@ -57,7 +68,11 @@ function Navigation() {
                         <td className="third-td">{list.type}</td>
                         <td className="forth-td">{list.startDate} </td>
                         <td className="fifth-td">{list.endDate}</td>
-                        <td><button className="btn-edit">Edit</button><button>Delete</button> </td>
+                        <td>
+                        <button onClick={()=>navigate('/Surveypage')}
+                         className="btn-edit">Edit</button>
+                         <button onClick={(e)=>deletesurvey(list._id,e)}>Delete</button> 
+                         </td>
                     </tr>
                 </table>
                 })
@@ -73,13 +88,13 @@ function Navigation() {
         <div className="main">
             <div className="left-nav">
                 <span>
-                    <img src={logo1} alt="logo1" />
+                    <img onClick={()=>navigate('/Surveylist')} src={logo1} alt="logo1" />
                 </span>
                 <span className="icon2">
-                    <img src={logo2} alt="logo2" />
+                    <img onClick={()=>navigate('/Surveypage')} src={logo2} alt="logo2" />
                 </span>
                 <span className="three-line">
-                    <img className="three" src={hamburger} alt="hamburger" />
+                    <img onClick={()=>navigate('/Questions')} className="three" src={hamburger} alt="hamburger" />
                 </span>
             </div>
             <div className="right-side">
