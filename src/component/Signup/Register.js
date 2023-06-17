@@ -21,11 +21,11 @@ const Register = () => {
     const [error, setError] = useState("");
 
     const handelSubmit = async (e) => {
-
+        const url = 'http://localhost:8000';
         e.preventDefault();
         try {
 
-            const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/", {
+            const res = await axios.post(url || "https://surveyform-nikhilrajput.onrender.com/", {
                 "name": name,
                 "email": email,
                 "phone": phone,
@@ -35,10 +35,11 @@ const Register = () => {
             });
 
             console.log(res.data);
+            navigate("/");
         } catch (error) {
             console.error(error);
         }
-        navigate("/");
+       
     }
 
     // validating profession input

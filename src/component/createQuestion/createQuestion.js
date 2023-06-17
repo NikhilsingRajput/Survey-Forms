@@ -9,6 +9,7 @@ import gear from '../assets/gear.svg';
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Left_Navbar, Top_Navbar } from "../navbar/nav";
 
 
 
@@ -54,30 +55,9 @@ const QuestionPage = () => {
 
     return (
         <div className="main">
-            <div className="left-nav">
-                <span>
-                    <img onClick={() => navigate('/Surveylist')} src={logo1} alt="logo1" />
-                </span>
-                <span className="icon2">
-                    <img onClick={() => navigate('/Surveypage')} src={logo2} alt="logo2" />
-                </span>
-                <span className="three-line">
-                    <img onClick={() => navigate('/Questions')} className="three" src={hamburger} alt="hamburger" />
-                </span>
-            </div>
+            <Left_Navbar />
             <div className="right-side">
-                <div className="top-nav">
-                    <span>Logo</span>
-                    <span className="right">
-                        <span>
-                            <select className="select">
-                                <option >Logout</option>
-                            </select> </span>
-                    </span>
-                    <div className="picture-nav">
-                        <img className="sort-image-person" src={person} alt="Person" />
-                    </div>
-                </div>
+                <Top_Navbar />
                 <div className="box">
                     <img onClick={() => navigate('/Surveypage')} className="left-arrow" src={leftArrow} alt="leftArrow" />
                     <div id="text">{title}</div>

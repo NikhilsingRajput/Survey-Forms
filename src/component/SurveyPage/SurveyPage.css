@@ -1,3 +1,6 @@
+*{
+    margin: 0;
+  }
 .box {
     display: flex;
     /* border: 1px solid black; */
@@ -183,6 +186,9 @@ hr {
 .date-input{
     color:#CCCCCC;
     
+}
+.top-nav{
+    /* width: 100%; */
 }
 
 

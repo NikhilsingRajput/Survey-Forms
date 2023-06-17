@@ -1,42 +1,71 @@
 import React from "react";
 import { useEffect, useState } from "react"
-import logo1 from './assets/logo.svg';
-import logo2 from './assets/community.svg';
-import hamburger from './assets/hamburger.svg';
-import sort from './assets/sort.svg';
-import filter from './assets/sortfilter.svg'
-import person from './assets/person.svg'
+import sort from '../assets/sort.svg';
+import filter from '../assets/sortfilter.svg'
 import "./SurveyList.css"
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import  { Left_Navbar, Top_Navbar } from "../navbar/nav";
 
-function Navigation() {
-    const [search , setsearch] = useState("")
+axios.defaults.withCredentials = true
+function SurveyList() {
+    const [search , setsearch] = useState("");
+    const [data, setdata] = useState({});
+    const [edit , setedit] = useState(false)
+
     const navigate=useNavigate();
-    const url ='https://surveyform-nikhilrajput.onrender.com'
-    
+    const url ='https://surveyform-nikhilrajput.onrender.com';
+    // let url = 'http://localhost:8000'
+    // auth
+    const auth = async () => {
+        try {
+            const res = await fetch(url + '/user', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'content-Type': 'application/json'
+                },
+                credentials: 'include'
+            })
+            
+            const data = await res.json();
+            setdata(data)
+            // console.log(data);
+
+            if (!res.status == 200) {
+                alert('Login Again')
+            }
+        } catch (error) {
+            navigate('/')
+        }
+    }
+   
     // function get
-    function getSurveyList() {
-       
-        return  axios.get(url+'/survey/surveys')
+    const getSurveyList = async () => {
+       console.log("myuser",data);
+        return await axios.post(url+'/survey/surveys',{'email':data.email})
             .then(res => {
                 if(res.status === 200 && res.data){
                     // console.log("ok")
                     return res.data
                 }
-                throw new Error('Not able to fetch posts')
+                throw new Error('Not able to fetch Data')
             })
     }
+    useEffect(() => {
+        auth()
+    },[])
 
     function Surveys(){
        
-        const deletesurvey = async(id,e)=>{
+        const deletesurvey = async(id,e,sname)=>{
             e.preventDefault()
-            // console.log(id);
             const res =await axios.delete(url+'/survey/surveys/:name/delete', {
                 data:{"id" : id}
             }).then((res)=>{
-                console.log("Survey deleted")
+                console.log("Survey deleted");
+                alert(`${sname} Deleted Successfully`);
+                window.location.reload(true);     //to refresh page 
             })
           
         }
@@ -49,7 +78,7 @@ function Navigation() {
                 return item
             }
         })
-    // console.log(getUserPosts())
+    
         useEffect(()=>{
             getSurveyList()
             .then(data =>{
@@ -57,7 +86,7 @@ function Navigation() {
             }).catch(err=>{
                 alert(err.message)
             })
-        },[deletesurvey])
+        },[data])
         return <div id="survey-container">
             {
                 searchItem.map(list=>{
@@ -69,9 +98,19 @@ function Navigation() {
                         <td className="forth-td">{list.startDate} </td>
                         <td className="fifth-td">{list.endDate}</td>
                         <td>
-                        <button onClick={()=>navigate('/Surveypage')}
+                        <button onClick={(e)=>{
+                            navigate('/Surveypage/edit')
+                        }
+                        
+                        
+                        // console.log(list.name , list._id)
+                       
+                    
+                    }
                          className="btn-edit">Edit</button>
-                         <button onClick={(e)=>deletesurvey(list._id,e)}>Delete</button> 
+                         <button onClick={(e)=>{
+                            deletesurvey(list._id,e,list.name)}
+                            }>Delete</button> 
                          </td>
                     </tr>
                 </table>
@@ -86,32 +125,11 @@ function Navigation() {
 
     return <>
         <div className="main">
-            <div className="left-nav">
-                <span>
-                    <img onClick={()=>navigate('/Surveylist')} src={logo1} alt="logo1" />
-                </span>
-                <span className="icon2">
-                    <img onClick={()=>navigate('/Surveypage')} src={logo2} alt="logo2" />
-                </span>
-                <span className="three-line">
-                    <img onClick={()=>navigate('/Questions')} className="three" src={hamburger} alt="hamburger" />
-                </span>
-            </div>
+           <Left_Navbar />
             <div className="right-side">
-                <div className="top-nav">
-                    <span>Logo</span>
-                    <span className="right">
-                        <span>
-                            <select className="select">
-                                <option >Logout</option>
-                            </select> </span>
-                    </span>
-                    <div className="picture-nav">
-                        <img className="sort-image-person" src={person} alt="Person" />
-                    </div>
-                </div>
-                {/* ----------------------------------------------- */}
-                <div class="navbar">
+                <Top_Navbar name={data.name} />
+                
+               <div class="navbar">
                     <div class="logo">
                         <span>Survey List</span>
                     </div>
@@ -138,10 +156,12 @@ function Navigation() {
                 </div>
 
                     {Surveys()}
+                    
+                    
             
             </div>
-        </div>
+        </div>      
     </>
 }
 
-export default Navigation
+export default SurveyList

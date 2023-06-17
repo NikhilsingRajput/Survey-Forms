@@ -10,10 +10,12 @@ const Sign_in = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const url ='https://surveyform-nikhilrajput.onrender.com'
+    // const url = 'http://localhost:8000'
     const Authsignin = async (e) => {
-        console.log(email, password)
+        // console.log(email, password)
         e.preventDefault()
         try {
+            
             const res = await axios.post(url+"/signin", {
                 "email": email,
                 "password": password
@@ -38,6 +40,7 @@ return <div className="frontpage">
         <Link to={"/Register"}>
             <button className="btns">Register</button>
         </Link>
+       
 
     </div>
     <div className="right-side">

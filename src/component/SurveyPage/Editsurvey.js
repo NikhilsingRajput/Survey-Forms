@@ -6,19 +6,17 @@ import { Left_Navbar, Top_Navbar } from "../navbar/nav";
 
 
 
-const SurveyPage = () => {
-    const navigate = useNavigate()
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState("");
-    const [startDate, setStartDate] = useState();
-    const [endDate, setEndDate] = useState();
-    const [otherCriteria, setotherCriteria] = useState("");
+const EditSurvey = (prop) => {
+    const navigate = useNavigate();
     const [type, setType] = useState("");
-    const [image, setImage] = useState("");
-    const [data, setdata] = useState("")
-    const url = 'https://surveyform-nikhilrajput.onrender.com';
+    console.log("prop",prop,prop.id)
+
+const url = 'https://surveyform-nikhilrajput.onrender.com';
     // const url = 'http://localhost:8000';
 
+    const [userdata, setdata] = useState({});
+    const [surveydata, setsurveydata] = useState({name:"", description:"", type:"", startDate:"",endDate:"" });
+    console.log(userdata)
     const auth = async () => {
         try {
             const res = await fetch(url + '/user', {
@@ -31,8 +29,9 @@ const SurveyPage = () => {
             })
             
             const data = await res.json();
+            // setdata({...userdata,name:data.name, phone:data.phone})
             setdata(data)
-            // console.log(data);
+            console.log(data);
 
             if (!res.status == 200) {
                 alert('Login Again')
@@ -45,30 +44,38 @@ const SurveyPage = () => {
         auth()
     }, [])
 
+    const HandleInput = (e) =>{
+        
+        const name = e.target.name;
+        const value = e.target.value;
+        setdata({...surveydata,[name]:value})
+    }
 
     const handleSubmit = async (e) => {
-        if(!name || !description || !startDate || !endDate ||  !type ){
-            alert('Fill Required fields');
-            return
-        }
-       
+        // if(!name || !description || !startDate || !endDate ||  !type ){
+        //     alert('Fill Required fields');
+        //     return
+        // }
        
         //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
+       
         try {
         
-            const res = await axios.post(url + "/survey/create", {
-                "email": data.email,
-                "name": name,
-                "description": description,
-                "startDate": startDate,
-                "endDate": endDate,
-                "otherCriteria": otherCriteria,
-                "type": type,
-                "image": image
+            const res = await axios.patch(url + "/survey/surveys/:name/update", {
+               
+                "email" : userdata.email,
+                "name": surveydata.name,
+                "description": surveydata.description,
+                "type":surveydata.type,
+                "startDate": surveydata.startDate,
+                "endDate": surveydata.endDate,
+                "otherCriteria": surveydata.otherCriteria
+               
+                
             });
-            console.log(res.data);
-            navigate('/Questions')
-            alert('survey added');
+            // console.log(res.data);
+            navigate('/Surveylist')
+            alert('Survey Edited Successfully');
 
         } catch (error) {
             console.error(error);
@@ -85,15 +92,18 @@ const SurveyPage = () => {
                     <Top_Navbar />
 
                     <div className="box">
-                        <div id="text">Create Survey</div>
-                        <button className="btns" id="btn-cancel">Cancel</button>
+                        <div id="text">Edit Survey</div>
+                        <button
+                        className="btns" id="btn-cancel"
+                        onClick={()=>navigate('/Surveylist')}
+                        >Cancel</button>
                         
                         <button
                             type="submit"
                             onClick={handleSubmit}
                             className="btns"
                             id="btn-next"
-                        >Next</button>
+                        >Save</button>
                     </div>
                     <hr></hr>
                     <div id="form">
@@ -104,32 +114,38 @@ const SurveyPage = () => {
                                     className="name-input"
                                     required
                                     type={'text'}
+                                    name="name"
+                                    value={prop.id}
                                     placeholder={"Name here"}
-                                    onChange={(e) => { setName(e.target.value) }} />
+                                    // onChange={(e) => { setName(e.target.value) }} />
+                                    onChange={HandleInput}
+                                 />
                                 <label className="description-title" >Description</label>
                                 <textarea
                                     className="description-input"
                                     required
                                     type={'text'}
+                                    name="description"
+                                    value={userdata.description}
                                     placeholder={"Enter text here..."}
-                                    onChange={(e) => setDescription(e.target.value)}
+                                    onChange={HandleInput}
                                     
                                 />
                                 <label className="survey-title"> Type of Survey</label>
                                 <select
                                     className="options-style"
-                                    onChange={(e) => { setType(e.target.value) }}
+                                    // onChange={(e) => { setType(e.target.value) }}
                                     // value={}
                                     required
                                     id="options"
-                                    name="options"
+                                    name="Type"
                                 >
                                     <option value="select">Select</option>
-                                    <option value="community">community</option>
+                                    <option value="Community">community</option>
                                     <option value="Online">Online</option>
                                     <option value="Focus Group">Focus Group</option>
                                     <option value="Telephone">Telephone</option>
-                                    <option value="Mail">Mail</option>
+                                    <option value="Email">Mail</option>
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
@@ -139,14 +155,14 @@ const SurveyPage = () => {
                                     <label className="date-title">Start Date</label>
                                     <input
                                         className="date-input"
-                                        onChange={(e) => { setStartDate(e.target.value) }}
+                                        // onChange={HandleInput}
                                         required
                                         type={'date'}
                                     />
                                     <label className="date-title end-date">End Date</label>
                                     <input
                                         className="date-input"
-                                        onChange={(e) => { setEndDate(e.target.value) }}
+                                        onChange={ HandleInput}
                                         required
                                         type={'date'}
                                     />
@@ -154,7 +170,7 @@ const SurveyPage = () => {
                                 <label className="criteria-title" >Other Criteria (optional)</label>
                                 <input
                                     className="criteria-input"
-                                    onChange={(e) => { setotherCriteria(e.target.value) }}
+                                    // onChange={HandleInput}
                                     type={'text'}
                                     placeholder={"Enter here"}
                                 />
@@ -163,7 +179,7 @@ const SurveyPage = () => {
                                 <div className="uploader-input">
                                     <input
                                         type="file"
-                                        onChange={(e) => { setImage(e.target.value) }}
+                                        // onChange={HandleInput}
                                         id="input-file-max-fs"
                                         class="file-upload"
                                         data-max-file-size="2M"
@@ -182,6 +198,6 @@ const SurveyPage = () => {
 
 }
 
-export default SurveyPage;
+export default EditSurvey;
 
 
