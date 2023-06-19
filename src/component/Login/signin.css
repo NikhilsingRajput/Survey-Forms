@@ -101,12 +101,16 @@ opacity: 1;
 
 .inp{
     left:0;
+    
     color:#77838F;
     border-bottom: 1px solid lightgray;
     margin-left: 6vw;
     margin-right: 6vw;
     padding-top: 3vw ;
     
+}
+.icoo{
+    padding-left: 1vw;
 }
 .signin-button{
     margin-top: 7vh;

@@ -25,7 +25,7 @@ const Register = () => {
         e.preventDefault();
         try {
 
-            const res = await axios.post(url || "https://surveyform-nikhilrajput.onrender.com/", {
+            const res = await axios.post("https://surveyform-nikhilrajput.onrender.com/", {
                 "name": name,
                 "email": email,
                 "phone": phone,

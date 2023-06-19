@@ -12,20 +12,20 @@ function SurveyList() {
     const [search , setsearch] = useState("");
     const [data, setdata] = useState({});
     const [edit , setedit] = useState(false)
-
+    
     const navigate=useNavigate();
     const url ='https://surveyform-nikhilrajput.onrender.com';
     // let url = 'http://localhost:8000'
     // auth
     const auth = async () => {
         try {
-            const res = await fetch(url + '/user', {
+            const res = await fetch('/user', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
                     'content-Type': 'application/json'
                 },
-                credentials: 'include'
+                // credentials: 'include'
             })
             
             const data = await res.json();
@@ -43,14 +43,33 @@ function SurveyList() {
     // function get
     const getSurveyList = async () => {
        console.log("myuser",data);
-        return await axios.post(url+'/survey/surveys',{'email':data.email})
-            .then(res => {
-                if(res.status === 200 && res.data){
-                    // console.log("ok")
-                    return res.data
-                }
-                throw new Error('Not able to fetch Data')
+        // return await axios.post(url+'/survey/surveys',{'email':data.email})
+        //     .then(res => {
+        //         if(res.status === 200 && res.data){
+        //             // console.log("ok")
+        //             return res.data
+        //         }
+        //         throw new Error('Not able to fetch Data')
+        //     })
+
+        const res = await fetch("/survey/surveys",{
+            method:"POST",
+            headers:{
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                email:data.email
             })
+        })
+        .then(res=>{
+            return res.json()
+        })
+      .catch((err)=>{
+            console.log(err)
+         })
+        console.log(res)
+        return res
+
     }
     useEffect(() => {
         auth()

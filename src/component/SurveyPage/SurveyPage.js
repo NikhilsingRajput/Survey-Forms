@@ -21,7 +21,7 @@ const SurveyPage = () => {
 
     const auth = async () => {
         try {
-            const res = await fetch(url + '/user', {
+            const res = await fetch( '/user', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -38,6 +38,7 @@ const SurveyPage = () => {
                 alert('Login Again')
             }
         } catch (error) {
+            console.log('error',error)
             navigate('/')
         }
     }

@@ -16,13 +16,28 @@ const Sign_in = () => {
         e.preventDefault()
         try {
             
-            const res = await axios.post(url+"/signin", {
-                "email": email,
-                "password": password
-            });
+            // const res = await axios.post(url+"/signin", {
+            //     "email": email,
+            //     "password": password
+            // });
 
+            const res = fetch("/signin",{
+                method:"POST",
+                headers:{
+                    'Content-Type' : 'application/json'
+                },
+                body: JSON.stringify({
+                    email , password
+                })
+            }).then(res=>{
+                return res.json()
+            }).then(data=>{
+                console.log(data)
+            })
+            // const data = (await res).json()
+            // console.log(data)
             navigate("/Surveylist")
-            console.log(res.data);
+            // console.log(res.data);
         } catch (error) {
             console.error(error);
             alert("Invalid Credientials")
@@ -50,11 +65,14 @@ return <div className="frontpage">
 
             <form method="POST" action="" onSubmit={Authsignin}>
                 <div className="inp">
-                    <input placeholder="Email"
+                <i class="zmdi zmdi-email"></i>
+                    <input 
+                    className="icoo" placeholder="Email"
                         type="email" onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <div className="inp">
-                    <input className="hov"
+                <i class="zmdi zmdi-shield-security"></i>
+                    <input className="icoo"
                         placeholder="Password" type="password"
                         onChange={(e) => setPassword(e.target.value)} />
                 </div>

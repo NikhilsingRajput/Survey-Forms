@@ -7,7 +7,7 @@ export default function Profile() {
     const navigate = useNavigate();
     const [userdata, setdata] = useState("");
     // let url = 'http://localhost:8000'
-    const url ='https://surveyform-nikhilrajput.onrender.com';
+    let url = 'https://surveyform-nikhilrajput.onrender.com'
     const about = async () => {
         try {
             const res = await fetch(url + '/user', {
@@ -28,7 +28,7 @@ export default function Profile() {
             }
         } catch (error) {
             // console.log(error ,"error");
-            // navigate('/')
+            navigate('/')
         }
 
         // return  axios.get(url+'/user',{

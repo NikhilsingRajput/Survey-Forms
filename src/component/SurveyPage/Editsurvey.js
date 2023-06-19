@@ -59,23 +59,24 @@ const url = 'https://surveyform-nikhilrajput.onrender.com';
        
         //  console.log(name, description, startDate , endDate , otherCriteria , type , image);
        
-        try {
+        try { 
+            alert("sorry unable to edit")
         
-            const res = await axios.patch(url + "/survey/surveys/:name/update", {
+            // const res = await axios.patch(url + "/survey/surveys/:name/update", {
                
-                "email" : userdata.email,
-                "name": surveydata.name,
-                "description": surveydata.description,
-                "type":surveydata.type,
-                "startDate": surveydata.startDate,
-                "endDate": surveydata.endDate,
-                "otherCriteria": surveydata.otherCriteria
+                // "email" : userdata.email,
+                // "name": surveydata.name,
+                // "description": surveydata.description,
+                // "type":surveydata.type,
+                // "startDate": surveydata.startDate,
+                // "endDate": surveydata.endDate,
+                // "otherCriteria": surveydata.otherCriteria
                
                 
-            });
+            // });
             // console.log(res.data);
             navigate('/Surveylist')
-            alert('Survey Edited Successfully');
+            // alert('Survey Edited Successfully');
 
         } catch (error) {
             console.error(error);
