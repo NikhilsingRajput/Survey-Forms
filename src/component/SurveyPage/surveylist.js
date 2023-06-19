@@ -25,18 +25,24 @@ function SurveyList() {
                     Accept: 'application/json',
                     'content-Type': 'application/json'
                 },
-                // credentials: 'include'
-            })
+                credentials: 'include'
+            }).then(data=>{
+                    return data.json()
+                }).then(data=>{
+                    console.log(data)
+                    console.log("udata",data);
+                    setdata(data)
+                }).catch((err)=>{
+                    console.log(err)
+                })
             
-            const data = await res.json();
-            setdata(data)
-            console.log(data,"user");
-
-            if (!res.status == 200) {
-                alert('Login Again')
-            }
+            // const data = res.json();
+            // console.log("udata",data)
+            // setdata(data)
+            // console.log(data,"user");
         } catch (error) {
-            // navigate('/')
+            console.log(error)
+            navigate('/')
         }
     }
    

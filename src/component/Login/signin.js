@@ -16,30 +16,30 @@ const Sign_in = () => {
         e.preventDefault()
         try {
             
-            // const res = await axios.post(url+"/signin", {
-            //     "email": email,
-            //     "password": password
-            // });
+            const res = await axios.post(url+"/signin", {
+                "email": email,
+                "password": password
+            });
 
-            const res = await fetch(url+"/signin",{
-                method:"POST",
-                headers:{
-                    'Content-Type' : 'application/json'
-                },
-                body: JSON.stringify({
-                    email , password
-                })
-            }).then(data=>{
-                return data.json()
-            }).then(data=>{
-                console.log(data,data.user.email)
-                if(data.user.email){
-                    navigate("/Surveylist")
-                }
-            })
+            // const res = await fetch(url+"/signin",{
+            //     method:"POST",
+            //     headers:{
+            //         'Content-Type' : 'application/json'
+            //     },
+            //     body: JSON.stringify({
+            //         email , password
+            //     })
+            // }).then(data=>{
+            //     return data.json()
+            // }).then(data=>{
+            //     console.log(data,data.user.email)
+            //     if(data.user.email){
+            //         navigate("/Surveylist")
+            //     }
+            // })
             
             
-            
+            navigate("/Surveylist")
             // console.log(res.data);
         } catch (error) {
             console.error(error);

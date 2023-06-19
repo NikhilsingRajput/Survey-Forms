@@ -10,7 +10,7 @@ export default function Profile() {
     let url = 'https://surveyform-nikhilrajput.onrender.com'
     const about = async () => {
         try {
-            const res = await fetch('/user', {
+            const res = await fetch(url+'/user', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -18,14 +18,23 @@ export default function Profile() {
                 },
                 credentials: 'include'
             })
-            console.log('checkdata')
-            const data = await res.json();
-            setdata(data)
-            console.log(data);
+            .then(data=>{
+                return data.json()
+            }).then(data=>{
+                console.log(data)
+                console.log("udata",data);
+                setdata(data)
+            }).catch((err)=>{
+                console.log(err)
+            })
+            // console.log('checkdata')
+            // const data = await res.json();
+            // setdata(data)
+            // console.log(data);
 
-            if (!res.status == 200) {
-                alert('Login Again')
-            }
+            // if (!res.status == 200) {
+            //     alert('Login Again')
+            // }
         } catch (error) {
             // console.log(error ,"error");
             // navigate('/')
