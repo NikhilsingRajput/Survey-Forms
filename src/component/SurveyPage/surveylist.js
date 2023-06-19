@@ -42,7 +42,7 @@ function SurveyList() {
    
     // function get
     const getSurveyList = async () => {
-       console.log("myuser",data);
+       console.log("email",data.email);
         // return await axios.post(url+'/survey/surveys',{'email':data.email})
         //     .then(res => {
         //         if(res.status === 200 && res.data){
@@ -52,7 +52,7 @@ function SurveyList() {
         //         throw new Error('Not able to fetch Data')
         //     })
 
-        const res = await fetch("/survey/surveys",{
+        const res = await fetch(url+"/survey/surveys",{
             method:"POST",
             headers:{
                 'Content-Type' : 'application/json'

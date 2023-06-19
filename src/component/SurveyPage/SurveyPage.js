@@ -21,7 +21,7 @@ const SurveyPage = () => {
 
     const auth = async () => {
         try {
-            const res = await fetch( '/user', {
+            const res = await fetch( url+'/user', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',

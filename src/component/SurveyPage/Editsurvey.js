@@ -19,7 +19,7 @@ const url = 'https://surveyform-nikhilrajput.onrender.com';
     console.log(userdata)
     const auth = async () => {
         try {
-            const res = await fetch(url + '/user', {
+            const res = await fetch(url +'/user', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
