@@ -36,7 +36,7 @@ function SurveyList() {
                 alert('Login Again')
             }
         } catch (error) {
-            navigate('/')
+            // navigate('/')
         }
     }
    

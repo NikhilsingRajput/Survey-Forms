@@ -39,7 +39,7 @@ const SurveyPage = () => {
             }
         } catch (error) {
             console.log('error',error)
-            navigate('/')
+            // navigate('/')
         }
     }
     useEffect(() => {

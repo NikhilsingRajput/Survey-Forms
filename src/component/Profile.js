@@ -28,7 +28,7 @@ export default function Profile() {
             }
         } catch (error) {
             // console.log(error ,"error");
-            navigate('/')
+            // navigate('/')
         }
 
         // return  axios.get(url+'/user',{
