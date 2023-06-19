@@ -21,7 +21,7 @@ const Sign_in = () => {
             //     "password": password
             // });
 
-            const res = fetch(url+"/signin",{
+            const res = await fetch(url+"/signin",{
                 method:"POST",
                 headers:{
                     'Content-Type' : 'application/json'
@@ -29,14 +29,17 @@ const Sign_in = () => {
                 body: JSON.stringify({
                     email , password
                 })
-            }).then(res=>{
-                return res.json()
             }).then(data=>{
-                console.log(data)
+                return data.json()
+            }).then(data=>{
+                console.log(data,data.user.email)
+                if(data.user.email){
+                    navigate("/Surveylist")
+                }
             })
-            // const data = (await res).json()
-            // console.log(data)
-            navigate("/Surveylist")
+            
+            
+            
             // console.log(res.data);
         } catch (error) {
             console.error(error);
