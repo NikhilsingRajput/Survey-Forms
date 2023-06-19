@@ -21,7 +21,7 @@ const Sign_in = () => {
             //     "password": password
             // });
 
-            const res = fetch("/signin",{
+            const res = fetch(url+"/signin",{
                 method:"POST",
                 headers:{
                     'Content-Type' : 'application/json'

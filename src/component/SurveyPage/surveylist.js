@@ -19,7 +19,7 @@ function SurveyList() {
     // auth
     const auth = async () => {
         try {
-            const res = await fetch('/user', {
+            const res = await fetch(url+'/user', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
@@ -30,7 +30,7 @@ function SurveyList() {
             
             const data = await res.json();
             setdata(data)
-            // console.log(data);
+            console.log(data,"user");
 
             if (!res.status == 200) {
                 alert('Login Again')

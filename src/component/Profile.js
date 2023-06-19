@@ -10,7 +10,7 @@ export default function Profile() {
     let url = 'https://surveyform-nikhilrajput.onrender.com'
     const about = async () => {
         try {
-            const res = await fetch(url + '/user', {
+            const res = await fetch('/user', {
                 method: 'GET',
                 headers: {
                     Accept: 'application/json',
